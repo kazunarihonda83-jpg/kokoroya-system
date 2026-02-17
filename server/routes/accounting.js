@@ -118,7 +118,13 @@ router.use(authenticateToken);
 router.get('/accounts', (req, res) => {
   try {
     const accounts = db.prepare('SELECT * FROM accounts WHERE is_active = 1 ORDER BY account_code').all();
-    res.json(accounts);
+    // フロントエンド互換性のためにcode/nameプロパティを追加
+    const mappedAccounts = accounts.map(acc => ({
+      ...acc,
+      code: acc.account_code,
+      name: acc.account_name
+    }));
+    res.json(mappedAccounts);
   } catch (error) {
     console.error('Error getting accounts:', error);
     res.status(500).json({ error: 'Failed to get accounts' });

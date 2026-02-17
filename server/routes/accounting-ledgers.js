@@ -300,10 +300,10 @@ router.get('/general-ledger', (req, res) => {
         je.entry_date,
         je.description,
         je.amount,
-        debit_acc.code as debit_code,
-        debit_acc.name as debit_name,
-        credit_acc.code as credit_code,
-        credit_acc.name as credit_name,
+        debit_acc.account_code as debit_code,
+        debit_acc.account_name as debit_name,
+        credit_acc.account_code as credit_code,
+        credit_acc.account_name as credit_name,
         je.reference_type,
         je.reference_id
       FROM journal_entries je
@@ -334,7 +334,7 @@ router.get('/general-ledger', (req, res) => {
     const entries = db.prepare(query).all(...params);
 
     // Get all accounts for the ledger view
-    const accounts = db.prepare('SELECT id, code, name, account_type FROM accounts ORDER BY code').all();
+    const accounts = db.prepare('SELECT id, account_code, account_name, account_type FROM accounts ORDER BY account_code').all();
 
     // Calculate balances for each account
     const accountBalances = {};
@@ -366,8 +366,8 @@ router.get('/general-ledger', (req, res) => {
       }
 
       accountBalances[account.id] = {
-        code: account.code,
-        name: account.name,
+        code: account.account_code,
+        name: account.account_name,
         account_type: account.account_type,
         total_debit,
         total_credit,
