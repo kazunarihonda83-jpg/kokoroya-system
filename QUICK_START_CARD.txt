@@ -1,0 +1,96 @@
+╔═══════════════════════════════════════════════════════════════════╗
+║                                                                   ║
+║           🚀 麺家弍色システム デプロイクイックスタート              ║
+║                                                                   ║
+╚═══════════════════════════════════════════════════════════════════╝
+
+📦 リポジトリ: https://github.com/kazunarihonda83-jpg/menya-nishiki-system-cloud
+📝 最新コミット: ead3679
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔵 PART 1: Render でバックエンド (5分)
+
+1. https://render.com → Sign In (GitHub)
+2. New + → Web Service
+3. リポジトリ接続: menya-nishiki-system-cloud
+4. 設定:
+   • Name: menya-nishiki-backend
+   • Region: Singapore
+   • Build: npm install
+   • Start: node server/index.js
+   
+5. 環境変数（6個）:
+   NODE_ENV=production
+   PORT=5003
+   SERVE_FRONTEND=false
+   RESET_DB=false
+   DB_PATH=/data/menya-nishiki-order.db
+   JWT_SECRET=menya_nishiki_jwt_secret_2026_change_in_production
+   
+6. ディスク:
+   • Name: sqlite-data
+   • Mount: /data
+   • Size: 1 GB
+   
+7. Create Web Service → デプロイ完了を待つ
+8. 📋 URLをコピー: https://______________________.onrender.com
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🟢 PART 2: Vercel でフロントエンド (5分)
+
+1. https://vercel.com → Sign In (GitHub)
+2. Add New... → Project
+3. Import: menya-nishiki-system-cloud
+4. Framework: Vite (自動検出)
+5. 環境変数（2個）:
+   VITE_API_URL=https://【RenderのURL】/api ⚠️ /api を忘れずに！
+   NODE_ENV=production
+   
+6. Deploy → デプロイ完了を待つ
+7. 📋 URLをコピー: https://______________________.vercel.app
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ PART 3: 動作確認 (5分)
+
+1. ログイン:
+   • URL: Vercel URL
+   • ユーザー名: 麺家弍色
+   • パスワード: admin123
+   
+2. 在庫登録テスト:
+   • 在庫管理 → 新規登録
+   • ねぎ / 野菜 / 10個 / ¥220
+   
+3. キャッシュフロー確認:
+   • 会計帳簿 → キャッシュフロー計算書
+   • 営業支出: ¥2,200 ✅
+   
+4. 在庫出庫テスト:
+   • ねぎ → 出庫 → 3個
+   
+5. 損益計算書確認:
+   • 会計帳簿 → 損益計算書
+   • 売上原価: ¥660 ✅
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📚 詳細ドキュメント
+
+• ステップバイステップガイド: STEP_BY_STEP_DEPLOY.md
+• チェックリスト: DEPLOY_CHECKLIST.md
+• トラブルシューティング: DEPLOYMENT_MANUAL.md
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚠️  重要な注意事項
+
+1. VITE_API_URL には必ず /api を付ける
+2. RenderとVercel両方のデプロイが完了してから動作確認
+3. 初回ログイン後、パスワードを変更推奨
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+準備完了！デプロイを開始してください 🚀
